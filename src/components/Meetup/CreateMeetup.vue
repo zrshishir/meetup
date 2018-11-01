@@ -61,6 +61,9 @@
         }, 
         methods: {
             onCreateMeetup(){
+                if(!meetupForm){
+                    return
+                }
                 const meetupData = {
                     title: this.title,
                     location: this.location,
@@ -68,6 +71,9 @@
                     description: this.description,
                     date: new Date()
                 }
+
+                this.$store.dispatch('createMeetup', meetupData)
+                this.$router.push('/meetups')
             }
         }
     }

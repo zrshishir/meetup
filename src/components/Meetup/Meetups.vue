@@ -3,7 +3,7 @@
         <v-layout row wrap v-for="meetup in meetups" :key="meetup.id" class="mb-2">
             <v-flex xs12 sm10 md8 offset-sm1 offset-md2>
                 <v-card class="purple darken-3">
-                    <v-conainer fluid>
+                    <v-container fluid>
                         <v-layout row>
                             <v-flex xs5 sm4 md3>
                                 <v-img class="ma-2" :src="meetup.imageUrl">
@@ -23,7 +23,7 @@
                                 </v-card-action>
                             </v-flex>
                         </v-layout>
-                    </v-conainer>
+                    </v-container>
                 </v-card>
             </v-flex>
         </v-layout>
