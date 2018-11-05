@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <v-layout row>
-            <v-flex xs12 sm-6 offset-sm3>
+            <v-flex xs12 sm6 offset-sm3>
                 <h2 class="purple--text">Create a meetup</h2>
             </v-flex>
         </v-layout>
@@ -62,7 +62,7 @@
         methods: {
             onCreateMeetup(){
                 if(!meetupForm){
-                    return
+                    return true
                 }
                 const meetupData = {
                     title: this.title,
