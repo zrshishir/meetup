@@ -11,6 +11,11 @@ var config = {
 
 
 const app = firebase.initializeApp(config)
+const db = app.database()
+const dbTable = db.ref('names')
 
-export const db = app.database()
-export const dbTable = db.ref('names')
+export default {
+    db,
+    dbTable
+}
+

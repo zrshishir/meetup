@@ -1,10 +1,11 @@
-import api from '../../api/firebase'
 import firebase from 'firebase'
+import { router } from '../../main'
 
 
 
 const state = {
     token: window.localStorage.getItem('firebase_token'),
+    errorCode: '',
     errorAuth: '',
     user: ''
 
@@ -16,31 +17,43 @@ const getters = {
 };
 
 const actions = {
-    login: () => {
-        api.login()
+    signupUser: ({ commit }, users ) => {
+       firebase.auth().createUserWithEmailAndPassword(users.email, users.password)
+       .then(
+           response => {
+            window.localStorage.setItem('firebase_token', response.user.uid)
+            router.push('/');
+           }
+       ).catch(
+           error => {
+               commit('setAuthError', error.code, error.message)
+           }
+       )
     },
 
-    signupUser: ({ commit }, users ) => {
-        
-        firebase.auth().createUserWithEmailAndPassword(users.email, users.password)
+    login: ({ commit }, users) => {
+        firebase.auth().signInWithEmailAndPassword(users.email, users.password)
         .then(
-            user => {
-                window.localStorage.setItem('firebase_token', user.uid)
+            response => {
+                window.localStorage.setItem('firebase_token', response.user.uid)
             }
-            
         ).catch(
             error => {
-                commit('setAuthError', error.data.data)
+                commit('setAuthError', error.code, error.message)
             }
         )
     },
 
-    finalizeLogin: ( ) => {
-       
-    }, 
 
     logout: ({commit}) => {
-        commit('setToken', null)
+        firebase.auth().signOut()
+        .then(
+            commit('setToken', null)
+        ).catch(
+            error => {
+                commit('setAuthError', error.code, error.message)
+            }
+        )
     }
 
 };
@@ -50,8 +63,12 @@ const mutations = {
         state.token = token
     },
 
-    setAuthError: ( state, error) => {
-        state.errorAuth = error
+    setAuthError: ( state, errorCode, errorMessage) => {
+        state.errorCode = errorCode
+        state.errorAuth = errorMessage
+    },
+    setUser: (state, user) => {
+        state.user = user
     }
 };
 
