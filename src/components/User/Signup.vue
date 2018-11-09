@@ -5,6 +5,11 @@
                 <v-card>
                     <v-card-text>
                         <v-container>
+                            <v-layout row>
+                                <v-flex xs12 sm6 offset-sm3>
+                                    <h2 color="purple">Sign up Form</h2>
+                                </v-flex>
+                            </v-layout>
                             <form>
                                 <v-layout row>
                                     <v-flex xs12 sm6 offset-sm3>

@@ -1,13 +1,13 @@
 <template>
     <v-container>
-        <v-layout row>
-            <v-flex xs12 sm6  offset-sm3>
-                <h2 color="purple--text">Login Form</h2>
-            </v-flex>
-        </v-layout>
         <v-layout row wrap>
             <v-flex xs12>
-                <form>
+                    <v-layout row>
+                        <v-flex xs12 sm6 offset-sm3>
+                            <h2 color="purple">Signin Form</h2>
+                        </v-flex>
+                    </v-layout>
+                <form @submit="login({ email, password })">
                     <v-layout row>
                         <v-flex xs12 sm6 offset-sm3>
                             <v-text-field label="Email" type="email" v-model="email" placeholder="example@email.com" color="purple"></v-text-field>
@@ -20,7 +20,7 @@
                     </v-layout>
                     <v-layout row>
                         <v-flex xs12 sm6 offset-sm3>
-                            <v-btn flat dark type="submit" class="purple darken-3">Login</v-btn>
+                            <v-btn flat dark type="submit" class="purple darken-3" to="/">Login</v-btn>
                         </v-flex>
                     </v-layout>
                 </form>
@@ -30,12 +30,17 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
     export default {
         data(){
             return {
                 email: '',
                 password: ''
             }
+        }, 
+        computed: mapGetters(['isLoggedIn']),
+        methods: {
+            ...mapActions(['login'])
         }
     }
 </script>

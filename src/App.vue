@@ -2,13 +2,19 @@
   <v-app>
    <v-navigation-drawer temporary fixed enable-resize-watcher v-model="sideNav" dark class="purple darken-3">
        <v-list>
-         <v-list-tile v-for="item in menuItems" :key="item.title" :to="item.link">
+         <v-list-tile  v-for="item in menus" :key="item.title" :to="item.link">
            <v-list-tile-action>
              <v-icon>{{ item.icon }}</v-icon>
            </v-list-tile-action>
            <v-list-tile-content>
-             {{ item.title }}
+             {{ item.title }} 
            </v-list-tile-content>
+         </v-list-tile>
+         <v-list-tile v-if="isLoggedIn" >
+           <v-btn flat v-if="isLoggedIn" @click="logout" to="/">
+              <v-icon left dark>lock</v-icon>
+              Signout
+           </v-btn>
          </v-list-tile>
        </v-list>
      </v-navigation-drawer>
@@ -23,13 +29,13 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down floating">
-        <v-btn flat v-if="isLoggedIn" v-for="item in menuItems" :key="item.title" :to="item.link">
+        <v-btn flat v-for="item in menus" :key="item.title" :to="item.link">
           <v-icon left dark>{{ item.icon }}</v-icon>
           {{ item.title }}
         </v-btn>
-        <v-btn flat v-else v-for="item in menuSignouts" :key="item.title" :to="item.link">
-          <v-icon left dark>{{ item.icon }}</v-icon>
-          {{ item.title }}
+        <v-btn flat v-if="isLoggedIn" @click="logout" to="/">
+          <v-icon left dark>lock</v-icon>
+          Signout
         </v-btn>
       </v-toolbar-items>
     </v-toolbar>
@@ -53,21 +59,12 @@ export default {
     return {
       clipped: false,
       sideNav: false,
-      fixed: false,
-      menuItems:[
-        { icon: 'supervisor_account', title: 'View Meetups', link: '/meetups'},
-        { icon: 'room', title: 'Organize Meetups', link: '/meetup/new'},
-        { icon: 'person', title: 'Profile', link: '/profile'},
-        { icon: 'face', title: 'Sign out', link: '/signout'},
-      ],
-      menuSignouts: [
-         { icon: 'face', title: 'Sign up', link: '/signup'},
-         { icon: 'lock_open', title: 'Sign in', link: '/signin'},
-      ]
+      fixed: false
     }
   }, 
+
   computed:{
-    ...mapGetters(['isLoggedIn'])
+    ...mapGetters(['isLoggedIn','menus'])
   }, 
   methods: {
     ...mapActions(['logout'])

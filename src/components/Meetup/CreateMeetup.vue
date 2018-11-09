@@ -30,7 +30,8 @@
                     </v-layout>
                      <v-layout row>
                         <v-flex xs12 sm6 offset-sm3>
-                            <v-text-field name="description" label="Description" v-model="description" id="description" multi-line color="purple"></v-text-field>
+                            <v-textarea label="Description" color="purple"></v-textarea>
+                            <!-- <v-text-field name="description" label="Description" v-model="description" id="description" multi-line color="purple"></v-text-field> -->
                         </v-flex>
                     </v-layout>
                     <v-layout row>
